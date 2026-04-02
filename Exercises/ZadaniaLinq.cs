@@ -16,7 +16,12 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie01_StudenciZWarszawy()
     {
-        throw Niezaimplementowano(nameof(Zadanie01_StudenciZWarszawy));
+        var studenciZWarszawy = DaneUczelni.Studenci
+            .Where(s => s.Miasto == "Warsaw")
+            .Select(s => $"{s.Id} | {s.Imie} | {s.Nazwisko} | {s.Miasto}")
+            .ToList();
+
+        return studenciZWarszawy;
     }
 
     /// <summary>
@@ -30,9 +35,13 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie02_AdresyEmailStudentow()
     {
-        throw Niezaimplementowano(nameof(Zadanie02_AdresyEmailStudentow));
+        var emaile = DaneUczelni.Studenci
+            .Select(s => s.Email)
+            .ToList();
+        
+        return emaile;
     }
-
+    
     /// <summary>
     /// Zadanie:
     /// Posortuj studentów alfabetycznie po nazwisku, a następnie po imieniu.
@@ -45,8 +54,16 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie03_StudenciPosortowani()
     {
-        throw Niezaimplementowano(nameof(Zadanie03_StudenciPosortowani));
+        var posortowani = DaneUczelni.Studenci
+            .OrderBy(s => s.Nazwisko)
+            .ThenBy(s => s.Imie)
+            .Select(s => $"{s.Id} | {s.Imie} | {s.Nazwisko}")
+            .ToList();
+        
+        return posortowani;
     }
+    
+    
 
     /// <summary>
     /// Zadanie:
@@ -60,7 +77,15 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie04_PierwszyPrzedmiotAnalityczny()
     {
-        throw Niezaimplementowano(nameof(Zadanie04_PierwszyPrzedmiotAnalityczny));
+        var asd = DaneUczelni.Przedmioty.FirstOrDefault(p => p.Kategoria == "Analytics");
+
+        if (asd == null)
+        {
+            return ["Brak"];
+        }
+
+        return [$"{asd.Nazwa} | {asd.DataStartu}"];
+        
     }
 
     /// <summary>
